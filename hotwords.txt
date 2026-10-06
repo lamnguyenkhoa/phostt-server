@@ -1,0 +1,15 @@
+# Loanwords the model should recognize. One per line; restart the server after editing.
+#
+#   word                         boost it during decoding
+#   word :3.0                    with a stronger boost than HOTWORDS_SCORE (default 2.0)
+#   word = alias one, alias two  also replace what the model writes instead
+#
+# Write the word the way it should appear in the output ("Zalo", "offline").
+# For aliases, transcribe a few real recordings and copy what the model writes.
+# The "offline" aliases below came from an English text-to-speech voice; add the ones
+# your speakers produce (e.g. a Vietnamese-accented "ốp lai").
+
+offline = op len, op lai, op lea, op line, hop lai, oplank, oflin
+online
+Zalo
+live

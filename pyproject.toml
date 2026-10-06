@@ -1,0 +1,21 @@
+[project]
+name = "phostt-server"
+version = "0.1.0"
+description = "Vietnamese speech-to-text server (Zipformer-vi RNN-T, the phostt model) with the vietnamese-stt-server API"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "python-multipart",
+    # sherpa-onnx's wheels need sherpa-onnx-core (onnxruntime + native libs), but the
+    # registry metadata omits it, so uv never installs it. Keep both on the same version.
+    "sherpa-onnx==1.13.8",
+    "sherpa-onnx-core==1.13.8",
+    "numpy",
+    "imageio-ffmpeg",
+    "cryptography",
+    "sentencepiece>=0.2.2",
+]
+
+[tool.uv]
+package = false
