@@ -25,8 +25,13 @@ if exist ".env" set "ENV_ARGS=--env-file .env"
 
 echo Starting server...
 uv run --frozen %ENV_ARGS% src/main.py
-if errorlevel 1 goto :error
-goto :eof
+rem Native crashes (e.g. in onnxruntime) exit with negative codes, which
+rem "if errorlevel 1" misses, so compare the exact value.
+set "EXIT_CODE=%errorlevel%"
+echo.
+echo Server stopped (exit code %EXIT_CODE%).
+pause
+exit /b %EXIT_CODE%
 
 :error
 echo.
