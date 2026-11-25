@@ -2,6 +2,7 @@
 setlocal
 rem Double-click to install dependencies (first run) and start the server.
 cd /d "%~dp0"
+title phostt STT server - %CD%
 
 where uv >nul 2>nul
 if errorlevel 1 (

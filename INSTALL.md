@@ -84,6 +84,36 @@ Re-run `make_cert.py` if the machine's IP changes.
 
 ### Keep it running after reboot
 
+Pick one:
+
+|Option|Starts when|Visible window|
+|-|-|-|
+|Startup folder|The user signs in|Yes|
+|NSSM service|The machine boots|No (logs to `server.log`)|
+|Task Scheduler|The machine boots|No|
+
+**Startup folder (simplest).** Put a *shortcut* to `run-phostt-server.bat` in the
+user's Startup folder. Don't copy the bat file itself: it runs from its own folder, so
+a copy in Startup can't find `src\` or `models\`. In PowerShell:
+
+```powershell
+$s = (New-Object -ComObject WScript.Shell).CreateShortcut("$([Environment]::GetFolderPath('Startup'))\phostt STT server.lnk")
+$s.TargetPath = "C:\deploy\phostt-server\run-phostt-server.bat"
+$s.WorkingDirectory = "C:\deploy\phostt-server"
+$s.WindowStyle = 7   # start minimized
+$s.Save()
+```
+
+Or by hand: Win+R → `shell:startup`, then create a shortcut to the bat file there.
+
+This only runs when that user signs in, not at boot. For an unattended machine, turn
+on automatic sign-in (Win+R → `netplwiz` → untick "Users must enter a user name and
+password") or use one of the options below.
+
+The window title is `phostt STT server - <folder>`. Don't click inside the window:
+that starts text selection, which pauses the server until you press Esc. To prevent
+it, right-click the title bar → Properties → Options → untick **QuickEdit Mode**.
+
 **NSSM (Windows service).** [NSSM](https://nssm.cc/) runs a command as a service. In an
 elevated prompt, replacing `<user>` with the account that installed uv:
 
